@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.7" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="Beat_Track.app" target="17" />
+      <module name="Beat_Track.auth.data" target="17" />
+      <module name="Beat_Track.auth.domain" target="17" />
+      <module name="Beat_Track.auth.domain.main" target="17" />
+      <module name="Beat_Track.auth.domain.test" target="17" />
+      <module name="Beat_Track.auth.presentation" target="17" />
+      <module name="Beat_Track.core.data" target="17" />
+      <module name="Beat_Track.core.database" target="17" />
+      <module name="Beat_Track.core.presentation.designsystem" target="17" />
+      <module name="Beat_Track.core.presentation.ui" target="17" />
+      <module name="Beat_Track.run.data" target="17" />
+      <module name="Beat_Track.run.location" target="17" />
+      <module name="Beat_Track.run.network" target="17" />
+      <module name="Beat_Track.run.presentation" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
