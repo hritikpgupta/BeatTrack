@@ -16,6 +16,9 @@
       <module name="Beat_Track.run.location" target="17" />
       <module name="Beat_Track.run.network" target="17" />
       <module name="Beat_Track.run.presentation" target="17" />
+      <module name="BeatTrack.build-logic.convention" target="17" />
+      <module name="BeatTrack.build-logic.convention.main" target="17" />
+      <module name="BeatTrack.build-logic.convention.test" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
