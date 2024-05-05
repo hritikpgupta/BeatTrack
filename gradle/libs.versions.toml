@@ -100,7 +100,6 @@ org-mongodb-bson = { module = "org.mongodb:bson", version.ref = "bson" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 google-maps-android-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version.ref = "mapsUtils"}
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
-androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
 
 
 # Gradle
@@ -121,3 +120,40 @@ org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org
 androidDynamicFeature = { id = "com.android.dynamic-feature", version.ref = "agp" }
 mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin"}
 
+beattrack-android-application = { id = "beattrack.android.application", version = "unspecified" }
+beattrack-android-application-compose = { id = "beattrack.android.application.compose", version = "unspecified" }
+beattrack-android-library = { id = "beattrack.android.library", version = "unspecified" }
+beattrack-android-library-compose = { id = "beattrack.android.library.compose", version = "unspecified" }
+beattrack-android-feature-ui = { id = "beattrack.android.feature.ui", version = "unspecified" }
+beattrack-android-room = { id = "beattrack.android.room", version = "unspecified" }
+beattrack-jvm-library = { id = "beattrack.jvm.library", version = "unspecified" }
+beattrack-jvm-ktor = { id = "beattrack.jvm.ktor", version = "unspecified" }
+
+
+
+
+[bundles]
+compose = [
+    "androidx-activity-compose",
+    "androidx-lifecycle-runtime-compose",
+    "androidx-lifecycle-viewmodel-compose",
+    "androidx-compose-material3",
+    "androidx-compose-ui",
+    "androidx-compose-ui-graphics",
+    "androidx-compose-ui-tooling-preview",
+]
+compose-debug = [
+    "androidx-compose-ui-tooling",
+    "androidx-compose-ui-test-manifest",
+]
+koin = ["koin-core", "koin-android", "koin-android-workmanager"]
+koin-compose = ["koin-core", "koin-android", "koin-android-workmanager", "koin-androidx-compose"]
+
+ktor = [
+    "ktor-client-auth",
+    "ktor-client-cio",
+    "ktor-client-content-negotiation",
+    "ktor-client-core",
+    "ktor-client-logging",
+    "ktor-serialization-kotlinx-json"
+]
