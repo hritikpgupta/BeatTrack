@@ -20,6 +20,9 @@ dependencyResolutionManagement {
     }
 }
 
+//gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
+
+
 rootProject.name = "BeatTrack"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")

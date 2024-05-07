@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="beat_track">Beat Track</string>
+    <string name="welcome_to_beat_track">Welcome to Beat Track</string>
+    <string name="beat_track_description">Track your runs, set goals and achieve fitness milestones with our app</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Sign in</string>
+</resources>
