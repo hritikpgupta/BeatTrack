@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.hg.auth.data"
+    namespace = "com.hg.auth.datA"
 }
 
 dependencies {

@@ -12,4 +12,6 @@
     <string name="contains_lowercase_char">Contains lowercase character</string>
     <string name="at_least_one_number">At least one number</string>
     <string name="at_least_x_characters">At least %d characters</string>
+    <string name="error_email_exists">A user with that email already exist</string>
+    <string name="registration_successfull">Registration Successful</string>
 </resources>

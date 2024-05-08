@@ -1,5 +1,6 @@
 package com.hg.beattrack
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -32,8 +33,8 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
         }
         composable(route = "register") {
             RegisterScreenRoot(onSignInClick = {
-                navController.navigate("login"){
-                    popUpTo("register"){
+                navController.navigate("login") {
+                    popUpTo("register") {
                         inclusive = true
                         saveState = true
                     }
@@ -42,6 +43,9 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
             }, onSuccessfulRegistration = {
                 navController.navigate("login")
             })
+        }
+        composable(route = "login") {
+            Text(text = "Login Screen")
         }
 
 
