@@ -64,7 +64,7 @@ fun RegisterScreenRoot(
                 Toast.makeText(context, event.error.asString(context), Toast.LENGTH_SHORT).show()
             }
 
-            RegisterEvent.RegistrationSuccess -> {
+            is RegisterEvent.RegistrationSuccess -> {
                 keyboardController?.hide()
                 Toast.makeText(context, R.string.registration_successfull, Toast.LENGTH_SHORT)
                     .show()
@@ -74,9 +74,14 @@ fun RegisterScreenRoot(
 
     }
 
-
     RegisterScreen(
-        state = viewModel.state, onAction = viewModel::onAction
+        state = viewModel.state, onAction = { action ->
+            when (action) {
+                is RegisterAction.OnLoginClick -> onSignInClick()
+                else -> viewModel.onAction(action)
+            }
+
+        }
     )
 }
 
