@@ -9,6 +9,9 @@ import androidx.navigation.compose.navigation
 import com.hg.auth.presentation.intro.IntroScreenRoot
 import com.hg.auth.presentation.login.LoginScreenRoot
 import com.hg.auth.presentation.register.RegisterScreenRoot
+import com.hg.run.presentation.active_run.ActiveRunScreenRoot
+import com.hg.run.presentation.run_overview.RunOverviewScreenRoot
+
 
 @Composable
 fun NavigationRoot(
@@ -20,6 +23,7 @@ fun NavigationRoot(
         startDestination = if (isLoggedIn) "run" else "auth"
     ) {
         authGraph(navController)
+        runGraph(navController)
     }
 }
 
@@ -67,5 +71,20 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
         }
 
 
+    }
+}
+
+private fun NavGraphBuilder.runGraph(navController: NavHostController) {
+    navigation(startDestination = "run_overview", route = "run") {
+        composable("run_overview") {
+            RunOverviewScreenRoot(
+                onStartRunClick = {
+                    navController.navigate("active_run")
+                }
+            )
+        }
+        composable("active_run") {
+            ActiveRunScreenRoot()
+        }
     }
 }
