@@ -83,7 +83,15 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
             RunOverviewScreenRoot(
                 onStartRunClick = {
                     navController.navigate("active_run")
+                },
+                onLogoutClick = {
+                    navController.navigate("auth") {
+                        popUpTo("run") {
+                            inclusive = true
+                        }
+                    }
                 }
+
             )
         }
         composable(
@@ -96,8 +104,14 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
         ) {
             val context = LocalContext.current
             ActiveRunScreenRoot(
+                onBack = {
+                    navController.navigateUp()
+                },
+                onFinish = {
+                    navController.navigateUp()
+                },
                 onServiceToggle = { shouldServiceRun ->
-                    if(shouldServiceRun) {
+                    if (shouldServiceRun) {
                         context.startService(
                             ActiveRunService.createStartIntent(
                                 context = context,
@@ -106,7 +120,7 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
                         )
                     } else {
                         context.startService(
-                            ActiveRunService.createStopIntent(context = context,)
+                            ActiveRunService.createStopIntent(context = context)
                         )
                     }
                 }
