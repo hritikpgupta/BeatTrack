@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.hg.core.presentation.designsystem.BeatTrackTheme
 import com.hg.core.presentation.designsystem.StartIcon
 import com.hg.core.presentation.designsystem.StopIcon
+import com.hg.core.presentation.designsystem.components.BeatTrackActionButton
 import com.hg.core.presentation.designsystem.components.BeatTrackDialog
 import com.hg.core.presentation.designsystem.components.BeatTrackFloatingActionButton
 import com.hg.core.presentation.designsystem.components.BeatTrackOutLinedActionButton
@@ -33,6 +34,8 @@ import com.hg.core.presentation.designsystem.components.BeatTrackScaffold
 import com.hg.core.presentation.designsystem.components.BeatTrackToolbar
 import com.hg.run.presentation.R
 import com.hg.run.presentation.active_run.components.RunDataCard
+import com.hg.run.presentation.active_run.maps.TrackerMap
+import com.hg.run.presentation.active_run.service.ActiveRunService
 import com.hg.run.presentation.util.hasLocationPermission
 import com.hg.run.presentation.util.hasNotificationPermission
 import com.hg.run.presentation.util.shouldShowLocationPermissionRationale
@@ -41,10 +44,12 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ActiveRunScreenRoot(
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     viewModel: ActiveRunViewModel = koinViewModel(),
 ) {
     ActiveRunScreen(
         state = viewModel.state,
+        onServiceToggle = onServiceToggle,
         onAction = viewModel::onAction
     )
 }
@@ -52,6 +57,7 @@ fun ActiveRunScreenRoot(
 @Composable
 private fun ActiveRunScreen(
     state: ActiveRunState,
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     onAction: (ActiveRunAction) -> Unit
 ) {
     val context = LocalContext.current
@@ -105,6 +111,18 @@ private fun ActiveRunScreen(
         }
     }
 
+    LaunchedEffect(key1 = state.isRunFinished) {
+        if(state.isRunFinished) {
+            onServiceToggle(false)
+        }
+    }
+
+    LaunchedEffect(key1 = state.shouldTrack) {
+        if(context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isServiceActive) {
+            onServiceToggle(true)
+        }
+    }
+
     BeatTrackScaffold(
         withGradient = false,
         topAppBar = {
@@ -140,6 +158,13 @@ private fun ActiveRunScreen(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface)
         ) {
+            TrackerMap(
+                isRunFinished = state.isRunFinished,
+                currentLocation = state.currentLocation,
+                locations = state.runData.locations,
+                onSnapshot = {},
+                modifier = Modifier.fillMaxSize()
+            )
             RunDataCard(
                 elapsedTime = state.elapsedTime,
                 runData = state.runData,
@@ -150,6 +175,34 @@ private fun ActiveRunScreen(
             )
         }
     }
+
+    if (!state.shouldTrack && state.hasStartedRunning) {
+        BeatTrackDialog(
+            title = stringResource(id = R.string.running_is_pause),
+            onDismiss = { onAction(ActiveRunAction.OnFinishRunClick) },
+            description = stringResource(id = R.string.resume_or_finish_run),
+            primaryButton = {
+                BeatTrackActionButton(
+                    text = stringResource(id = R.string.resume),
+                    isLoading = false,
+                    onClick = {
+                        onAction(ActiveRunAction.OnResumeRunClick)
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+            },
+            secondaryButton = {
+                BeatTrackOutLinedActionButton(
+                    text = stringResource(id = R.string.finish),
+                    isLoading = state.isSavingRun,
+                    onClick = {
+                        onAction(ActiveRunAction.OnFinishRunClick)
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+            })
+    }
+
     if (state.showLocationRationale || state.showNotificationRationale) {
         BeatTrackDialog(
             title = stringResource(id = R.string.permission_required),
@@ -158,9 +211,11 @@ private fun ActiveRunScreen(
                 state.showLocationRationale && state.showNotificationRationale -> {
                     stringResource(id = R.string.location_notification_rationale)
                 }
+
                 state.showLocationRationale -> {
                     stringResource(id = R.string.location_rationale)
                 }
+
                 else -> {
                     stringResource(id = R.string.notification_rationale)
                 }
@@ -172,7 +227,7 @@ private fun ActiveRunScreen(
                     onClick = {
                         onAction(ActiveRunAction.DismissRationaleDialog)
                         permissionLauncher.requestBeatTrackPermissions(context)
-                    }
+                    },
                 )
             }
         )
@@ -190,7 +245,7 @@ private fun ActivityResultLauncher<Array<String>>.requestBeatTrackPermissions(
         Manifest.permission.ACCESS_COARSE_LOCATION,
         Manifest.permission.ACCESS_FINE_LOCATION,
     )
-    val notificationPermission = if(Build.VERSION.SDK_INT >= 33) {
+    val notificationPermission = if (Build.VERSION.SDK_INT >= 33) {
         arrayOf(Manifest.permission.POST_NOTIFICATIONS)
     } else arrayOf()
 
@@ -198,13 +253,11 @@ private fun ActivityResultLauncher<Array<String>>.requestBeatTrackPermissions(
         !hasLocationPermission && !hasNotificationPermission -> {
             launch(locationPermissions + notificationPermission)
         }
+
         !hasLocationPermission -> launch(locationPermissions)
         !hasNotificationPermission -> launch(notificationPermission)
     }
 }
-
-
-
 
 
 @Preview
@@ -213,6 +266,7 @@ private fun ActiveRunScreenPreview() {
     BeatTrackTheme {
         ActiveRunScreen(
             state = ActiveRunState(),
+            onServiceToggle = {},
             onAction = {}
         )
     }

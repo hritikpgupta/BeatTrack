@@ -21,6 +21,8 @@ val DarkColorTheme = darkColorScheme(
     onSurface = BeatTrackWhite,
     onSurfaceVariant = BeatTrackGray,
     error = BeatTrackDarkRed,
+    errorContainer = BeatTrackDarkRed5
+
 )
 
 @Composable

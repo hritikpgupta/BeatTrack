@@ -1,15 +1,18 @@
 package com.hg.beattrack
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.navDeepLink
 import com.hg.auth.presentation.intro.IntroScreenRoot
 import com.hg.auth.presentation.login.LoginScreenRoot
 import com.hg.auth.presentation.register.RegisterScreenRoot
 import com.hg.run.presentation.active_run.ActiveRunScreenRoot
+import com.hg.run.presentation.active_run.service.ActiveRunService
 import com.hg.run.presentation.run_overview.RunOverviewScreenRoot
 
 
@@ -83,8 +86,31 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
                 }
             )
         }
-        composable("active_run") {
-            ActiveRunScreenRoot()
+        composable(
+            route = "active_run",
+            deepLinks = listOf(
+                navDeepLink {
+                    uriPattern = "beattrack://active_run"
+                }
+            )
+        ) {
+            val context = LocalContext.current
+            ActiveRunScreenRoot(
+                onServiceToggle = { shouldServiceRun ->
+                    if(shouldServiceRun) {
+                        context.startService(
+                            ActiveRunService.createStartIntent(
+                                context = context,
+                                activityClass = MainActivity::class.java
+                            )
+                        )
+                    } else {
+                        context.startService(
+                            ActiveRunService.createStopIntent(context = context,)
+                        )
+                    }
+                }
+            )
         }
     }
 }

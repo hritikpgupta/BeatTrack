@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.beattrack.android.application.compose)
     alias(libs.plugins.beattrack.jvm.ktor)
-    alias(libs.plugins.mapsplatform.secrets.plugin)
 }
 
 android {
