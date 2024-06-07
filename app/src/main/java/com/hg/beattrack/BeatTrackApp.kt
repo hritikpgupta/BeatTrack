@@ -16,9 +16,14 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import timber.log.Timber
+import androidx.work.Configuration
+import androidx.work.WorkManager
+import org.koin.androidx.workmanager.koin.workManagerFactory
 
-class BeatTrackApp : Application() {
+
+class BeatTrackApp() : Application() {
     val applicationScope = CoroutineScope(SupervisorJob())
+    
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG) {
@@ -29,6 +34,7 @@ class BeatTrackApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@BeatTrackApp)
+            workManagerFactory()
             modules(
                 authDataModule,
                 authViewModelModule,
