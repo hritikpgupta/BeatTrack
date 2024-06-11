@@ -23,6 +23,10 @@ gradlePlugin {
             id = "beattrack.android.application.compose"
             implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
+        register("androidApplicationWearCompose") {
+            id = "beattrack.android.application.wear.compose"
+            implementationClass = "AndroidApplicationWearComposeConventionPlugin"
+        }
 
         register("androidLibrary") {
             id = "beattrack.android.library"
