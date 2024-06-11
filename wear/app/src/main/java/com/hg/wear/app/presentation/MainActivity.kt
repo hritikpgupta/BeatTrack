@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.hg.core.presentation.designsystem_wear.BeatTrackTheme
 import androidx.wear.compose.material3.Text
 
 class MainActivity : ComponentActivity() {
@@ -18,12 +19,15 @@ class MainActivity : ComponentActivity() {
 
 
         setContent {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "Hello from Wear!")
+            BeatTrackTheme {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "Hello from Wear!")
+                }
             }
+
         }
     }
 }
