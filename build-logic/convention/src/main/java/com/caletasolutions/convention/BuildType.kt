@@ -4,6 +4,7 @@ import com.android.build.api.dsl.BuildType
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.android.build.gradle.internal.dsl.DynamicFeatureExtension
 import org.gradle.api.Project
 import org.gradle.api.provider.ProviderFactory
 import org.gradle.kotlin.dsl.configure
@@ -32,7 +33,6 @@ internal fun Project.configureBuildType(
                     }
                 }
             }
-
             ExtensionType.APPLICATION -> {
                 extensions.configure<ApplicationExtension> {
                     buildTypes {
@@ -41,6 +41,19 @@ internal fun Project.configureBuildType(
                         }
                         release {
                             configureReleaseBuildType(commonExtension, apiKey)
+                        }
+                    }
+                }
+            }
+            ExtensionType.DYNAMIC_FEATURE -> {
+                extensions.configure<DynamicFeatureExtension> {
+                    buildTypes {
+                        debug {
+                            configureDebugBuildType(apiKey)
+                        }
+                        release {
+                            configureReleaseBuildType(commonExtension, apiKey)
+                            isMinifyEnabled = false
                         }
                     }
                 }

@@ -41,6 +41,10 @@ gradlePlugin {
             id = "beattrack.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
         }
+        register("androidDynamicFeature") {
+            id = "beattrack.android.dynamic.feature"
+            implementationClass = "AndroidDynamicFeatureConventionPlugin"
+        }
         register("jvmLibrary") {
             id = "beattrack.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"

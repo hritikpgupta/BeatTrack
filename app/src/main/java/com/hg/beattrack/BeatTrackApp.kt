@@ -1,6 +1,7 @@
 package com.hg.beattrack
 
 import android.app.Application
+import android.content.Context
 import com.hg.auth.data.di.authDataModule
 import com.hg.auth.presentation.di.authViewModelModule
 import com.hg.beattrack.di.appModule
@@ -18,6 +19,7 @@ import org.koin.core.context.startKoin
 import timber.log.Timber
 import androidx.work.Configuration
 import androidx.work.WorkManager
+import com.google.android.play.core.splitcompat.SplitCompat
 import org.koin.androidx.workmanager.koin.workManagerFactory
 
 
@@ -47,5 +49,10 @@ class BeatTrackApp() : Application() {
                 runDataModule
             )
         }
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        SplitCompat.install(this)
     }
 }

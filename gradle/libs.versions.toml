@@ -126,6 +126,7 @@ beattrack-android-library = { id = "beattrack.android.library", version = "unspe
 beattrack-android-library-compose = { id = "beattrack.android.library.compose", version = "unspecified" }
 beattrack-android-feature-ui = { id = "beattrack.android.feature.ui", version = "unspecified" }
 beattrack-android-room = { id = "beattrack.android.room", version = "unspecified" }
+beattrack-android-dynamic-feature = { id = "beattrack.android.dynamic.feature", version = "unspecified" }
 beattrack-jvm-library = { id = "beattrack.jvm.library", version = "unspecified" }
 beattrack-jvm-ktor = { id = "beattrack.jvm.ktor", version = "unspecified" }
 

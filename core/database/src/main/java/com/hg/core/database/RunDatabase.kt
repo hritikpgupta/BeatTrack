@@ -2,6 +2,7 @@ package com.hg.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.hg.core.database.dao.AnalyticsDao
 import com.hg.core.database.dao.RunDao
 import com.hg.core.database.entity.RunEntity
 import com.hg.core.database.dao.RunPendingSyncDao
@@ -19,5 +20,7 @@ abstract class RunDatabase : RoomDatabase() {
 
     abstract val runDao: RunDao
     abstract val runPendingSyncDao: RunPendingSyncDao
+    abstract val analyticsDao: AnalyticsDao
+
 
 }
