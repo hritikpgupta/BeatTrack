@@ -1,4 +1,4 @@
-import com.caletasolutions.convention.addUiLayerDependencies
+import com.hg.convention.addUiLayerDependencies
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies

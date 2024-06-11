@@ -1,8 +1,8 @@
 import com.android.build.api.dsl.ApplicationExtension
-import com.caletasolutions.convention.ExtensionType
-import com.caletasolutions.convention.configureBuildType
-import com.caletasolutions.convention.configureKotlinAndroid
-import com.caletasolutions.convention.libs
+import com.hg.convention.ExtensionType
+import com.hg.convention.configureBuildType
+import com.hg.convention.configureKotlinAndroid
+import com.hg.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

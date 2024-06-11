@@ -1,5 +1,5 @@
 import com.android.build.api.dsl.LibraryExtension
-import com.caletasolutions.convention.configureAndroidCompose
+import com.hg.convention.configureAndroidCompose
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType

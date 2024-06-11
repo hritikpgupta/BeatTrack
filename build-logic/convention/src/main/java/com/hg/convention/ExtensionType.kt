@@ -1,4 +1,4 @@
-package com.caletasolutions.convention
+package com.hg.convention
 
 enum class ExtensionType {
     APPLICATION,

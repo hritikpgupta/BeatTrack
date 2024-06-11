@@ -1,4 +1,4 @@
-package com.caletasolutions.convention
+package com.hg.convention
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.DependencyHandlerScope

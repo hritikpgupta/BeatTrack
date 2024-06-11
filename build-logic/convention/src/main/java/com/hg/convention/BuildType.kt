@@ -1,4 +1,4 @@
-package com.caletasolutions.convention
+package com.hg.convention
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.BuildType
 import com.android.build.api.dsl.CommonExtension

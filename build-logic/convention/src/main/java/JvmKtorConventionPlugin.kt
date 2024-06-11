@@ -1,5 +1,5 @@
-import com.caletasolutions.convention.configureKotlinJvm
-import com.caletasolutions.convention.libs
+import com.hg.convention.configureKotlinJvm
+import com.hg.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies

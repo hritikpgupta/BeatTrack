@@ -1,7 +1,7 @@
 import androidx.room.gradle.RoomExtension
 import com.android.build.api.dsl.LibraryExtension
-import com.caletasolutions.convention.configureAndroidCompose
-import com.caletasolutions.convention.libs
+import com.hg.convention.configureAndroidCompose
+import com.hg.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
