@@ -55,7 +55,7 @@ fun BeatTrackFloatingActionButton(
 
 @Preview
 @Composable
-private fun RuniqueFloatingButtonPreview() {
+private fun BeatTrackFloatingButtonPreview() {
     BeatTrackTheme {
         BeatTrackFloatingActionButton(
             icon = RunIcon,

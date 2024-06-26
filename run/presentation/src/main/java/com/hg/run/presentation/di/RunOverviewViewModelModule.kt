@@ -11,6 +11,9 @@ import com.hg.run.domain.RunningTracker
 
 val runPresentationModule = module {
     singleOf(::RunningTracker)
+    single {
+        get<RunningTracker>().elapsedTime
+    }
     viewModelOf(::RunOverviewViewModel)
     viewModelOf(::ActiveRunViewModel)
 }

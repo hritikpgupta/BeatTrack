@@ -12,7 +12,7 @@ import com.hg.auth.presentation.intro.IntroScreenRoot
 import com.hg.auth.presentation.login.LoginScreenRoot
 import com.hg.auth.presentation.register.RegisterScreenRoot
 import com.hg.run.presentation.active_run.ActiveRunScreenRoot
-import com.hg.run.presentation.active_run.service.ActiveRunService
+import com.hg.core.notification.ActiveRunService
 import com.hg.run.presentation.run_overview.RunOverviewScreenRoot
 
 

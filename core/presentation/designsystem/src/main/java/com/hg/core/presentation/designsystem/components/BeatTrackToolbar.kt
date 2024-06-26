@@ -132,11 +132,11 @@ fun BeatTrackToolbar(
 
 @Preview
 @Composable
-private fun RuniqueToolbarPreview() {
+private fun BeatTrackToolbarPreview() {
     BeatTrackTheme {
         BeatTrackToolbar(
             showBackButton = false,
-            title = "Runique",
+            title = "BeatTrack",
             modifier = Modifier.fillMaxWidth(),
             startContent = {
                 Icon(

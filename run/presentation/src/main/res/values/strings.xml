@@ -28,4 +28,5 @@
     <string name="heart_rate">Heart rate</string>
     <string name="max_heart_rate">Max Heart Rate</string>
     <string name="avg_heart_rate">Ø Heart Rate</string>
+    <string name="running_is_paused">Running is paused</string>
 </resources>

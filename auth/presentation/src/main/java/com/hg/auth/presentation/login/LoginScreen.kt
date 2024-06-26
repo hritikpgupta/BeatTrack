@@ -108,7 +108,7 @@ private fun LoginScreen(
                 style = MaterialTheme.typography.headlineMedium
             )
             Text(
-                text = stringResource(id = R.string.runique_welcome_text),
+                text = stringResource(id = R.string.beat_trackwelcome_text),
                 fontSize = 12.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

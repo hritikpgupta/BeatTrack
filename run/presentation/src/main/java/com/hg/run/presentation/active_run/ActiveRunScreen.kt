@@ -20,11 +20,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hg.core.presentation.designsystem.BeatTrackTheme
 import com.hg.core.presentation.designsystem.StartIcon
 import com.hg.core.presentation.designsystem.StopIcon
@@ -38,7 +40,7 @@ import com.hg.core.presentation.ui.ObserveAsEvents
 import com.hg.run.presentation.R
 import com.hg.run.presentation.active_run.components.RunDataCard
 import com.hg.run.presentation.active_run.maps.TrackerMap
-import com.hg.run.presentation.active_run.service.ActiveRunService
+import com.hg.core.notification.ActiveRunService
 import com.hg.run.presentation.util.hasLocationPermission
 import com.hg.run.presentation.util.hasNotificationPermission
 import com.hg.run.presentation.util.shouldShowLocationPermissionRationale
@@ -55,7 +57,7 @@ fun ActiveRunScreenRoot(
 ) {
     val context = LocalContext.current
     ObserveAsEvents(flow = viewModel.events) { event ->
-        when (event) {
+        when(event) {
             is ActiveRunEvent.Error -> {
                 Toast.makeText(
                     context,
@@ -63,22 +65,19 @@ fun ActiveRunScreenRoot(
                     Toast.LENGTH_LONG
                 ).show()
             }
-
             ActiveRunEvent.RunSaved -> onFinish()
         }
     }
-
     ActiveRunScreen(
         state = viewModel.state,
         onServiceToggle = onServiceToggle,
         onAction = { action ->
-            when (action) {
+            when(action) {
                 is ActiveRunAction.OnBackClick -> {
-                    if (!viewModel.state.hasStartedRunning) {
+                    if(!viewModel.state.hasStartedRunning) {
                         onBack()
                     }
                 }
-
                 else -> Unit
             }
             viewModel.onAction(action)
@@ -149,8 +148,9 @@ private fun ActiveRunScreen(
         }
     }
 
-    LaunchedEffect(key1 = state.shouldTrack) {
-        if (context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isServiceActive) {
+    val isServiceActive by ActiveRunService.isServiceActive.collectAsStateWithLifecycle()
+    LaunchedEffect(key1 = state.shouldTrack, isServiceActive) {
+        if (context.hasLocationPermission() && state.shouldTrack && !isServiceActive) {
             onServiceToggle(true)
         }
     }
@@ -204,9 +204,9 @@ private fun ActiveRunScreen(
                         )
                     }
                     onAction(ActiveRunAction.OnRunProcessed(stream.toByteArray()))
-
                 },
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
             )
             RunDataCard(
                 elapsedTime = state.elapsedTime,
@@ -221,8 +221,10 @@ private fun ActiveRunScreen(
 
     if (!state.shouldTrack && state.hasStartedRunning) {
         BeatTrackDialog(
-            title = stringResource(id = R.string.running_is_pause),
-            onDismiss = { onAction(ActiveRunAction.OnFinishRunClick) },
+            title = stringResource(id = R.string.running_is_paused),
+            onDismiss = {
+                onAction(ActiveRunAction.OnResumeRunClick)
+            },
             description = stringResource(id = R.string.resume_or_finish_run),
             primaryButton = {
                 BeatTrackActionButton(
@@ -243,7 +245,8 @@ private fun ActiveRunScreen(
                     },
                     modifier = Modifier.weight(1f)
                 )
-            })
+            }
+        )
     }
 
     if (state.showLocationRationale || state.showNotificationRationale) {
@@ -277,7 +280,6 @@ private fun ActiveRunScreen(
     }
 }
 
-
 private fun ActivityResultLauncher<Array<String>>.requestBeatTrackPermissions(
     context: Context
 ) {
@@ -301,7 +303,6 @@ private fun ActivityResultLauncher<Array<String>>.requestBeatTrackPermissions(
         !hasNotificationPermission -> launch(notificationPermission)
     }
 }
-
 
 @Preview
 @Composable
