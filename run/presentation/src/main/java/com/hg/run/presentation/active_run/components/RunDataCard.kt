@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hg.core.presentation.designsystem.BeatTrackTheme
 import com.hg.core.presentation.ui.formatted
+import com.hg.core.presentation.ui.toFormattedHeartRate
 import com.hg.core.presentation.ui.toFormattedKm
 import com.hg.core.presentation.ui.toFormattedPace
 import com.hg.run.domain.RunData
@@ -59,6 +60,12 @@ fun RunDataCard(
             RunDataItem(
                 title = stringResource(id = R.string.distance),
                 value = (runData.distanceMeters / 1000.0).toFormattedKm(),
+                modifier = Modifier
+                    .defaultMinSize(minWidth = 75.dp)
+            )
+            RunDataItem(
+                title = stringResource(id = R.string.heart_rate),
+                value = runData.heartRates.lastOrNull().toFormattedHeartRate(),
                 modifier = Modifier
                     .defaultMinSize(minWidth = 75.dp)
             )
@@ -106,7 +113,8 @@ private fun RunDataCardPreview() {
             elapsedTime = 10.minutes,
             runData = RunData(
                 distanceMeters = 3425,
-                pace = 3.minutes
+                pace = 3.minutes,
+                heartRates = listOf(150)
             )
         )
     }
