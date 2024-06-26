@@ -1,7 +1,7 @@
 package com.hg.wear.app.presentation
 
 import android.app.Application
-import com.hg.core.connectivity.data.coreConnectivityDataModule
+import com.hg.core.connectivity.data.di.coreConnectivityDataModule
 import com.hg.wear.app.presentation.di.appModule
 import com.hg.wear.run.data.di.wearRunDataModule
 import com.hg.wear.run.presentation.di.wearRunPresentationModule

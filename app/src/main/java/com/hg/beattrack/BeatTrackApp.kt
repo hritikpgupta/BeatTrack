@@ -20,7 +20,7 @@ import timber.log.Timber
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.google.android.play.core.splitcompat.SplitCompat
-import com.hg.core.connectivity.data.coreConnectivityDataModule
+import com.hg.core.connectivity.data.di.coreConnectivityDataModule
 import org.koin.androidx.workmanager.koin.workManagerFactory
 
 
